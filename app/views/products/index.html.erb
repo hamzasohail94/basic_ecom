@@ -1,0 +1,33 @@
+<%= render 'layouts/navbar' %>
+<p id="notice"><%= notice %></p>
+<h1>Products</h1>
+<table class="table dataTable">
+  <thead>
+  <tr>
+    <th>Avatar</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= image_tag(url_for(product.image), class: 'table-user-thumb') if product.image.attached? %> </td>
+      <td><%= product.name %></td>
+      <td><%= product.price %></td>
+      <td><%= product.quantity %></td>
+      <td><%= link_to 'Show', product %></td>
+      <td><%= link_to 'Add to cart', add_to_cart_product_path(product.id), method: :post if current_user&.role == 'Buyer' || !current_user.present? %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if current_user&.role == 'Admin' %>
+  <%= link_to 'New Product', new_product_path %>
+<% end %>

@@ -1,0 +1,39 @@
+<%= render 'layouts/navbar' %>
+<p id="notice"><%= notice %></p>
+<h1>Cart Items</h1>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Avatar</th>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Unit Price</th>
+    <th>Total</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% total_amount = 0.0 %>
+  <% @cart.each do |item| %>
+    <% product = find_product item['product_id'] %>
+    <tr>
+      <td><%= image_tag(url_for(product.image) ,class: 'table-user-thumb') if product.image.attached? %> </td>
+      <td><%= product.name %></td>
+      <td><%= item['quantity'] %></td>
+      <td><%= product.price %></td>
+      <td><%= product.price * item['quantity'].to_f %></td>
+      <% total_amount = total_amount + product.price * item['quantity'].to_f %>
+    </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td><strong>TOTAL:</strong></td>
+    <td><%= total_amount %></td>
+  </tr>
+  </tbody>
+</table>
+<div style="text-align: center">
+  <%= link_to "Place Order", carts_checkout_path, data: { method: :post }, class: 'custom-show-btn btn btn-info' %>
+  <%= link_to "Continue Shopping", root_path, class: 'custom-show-btn btn btn-info' %>
+</div>
+

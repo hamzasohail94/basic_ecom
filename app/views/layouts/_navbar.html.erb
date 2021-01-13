@@ -1,0 +1,9 @@
+<% unless current_user.present? %>
+  <%= link_to "Sign In", users_signin_path, class: 'btn btn-primary custom-button' %>
+  <%= link_to "Register", users_signup_path, class: 'btn btn-primary custom-button' %>
+<% else %>
+  <%= link_to "Logout", users_signout_path, method: :delete,  class: 'btn btn-primary custom-button' %>
+<% end %>
+<% if items_present_in_cart && @cart.blank? || current_user.present? && current_user.role == 'Buyer'%>
+  <%= link_to "Checkout", carts_view_cart_path, class: 'btn btn-primary custom-button' %>
+<% end %>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BasisEcom</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<script>
+    $(document).on('turbolinks:load', function () {
+        function show_popups(type, messsage) {
+            toastr[type](messsage);
+        }
+
+        <% flash.each do |f| %>
+        <% type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'success') %>
+        show_popups('<%= type %>', '<%= f[1] %>');
+        <% end %>
+    })
+
+</script>
+<body>
+<%= yield %>
+</body>
+</html>

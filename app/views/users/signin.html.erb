@@ -1,0 +1,25 @@
+<%= form_with(url: users_signin_path, local: true) do |f| %>
+  <div class="container">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-title text-center">
+          <h4>Login</h4>
+        </div>
+        <div class="d-flex flex-column text-center">
+            <div class="form-group">
+              <%= f.label :email %>
+              <%= f.email_field :email, required: true, class: "form-control", placeholder: "Your email address..." %>
+            </div>
+            <div class="form-group">
+              <%= f.label :password %>
+              <%= f.password_field :password, required: true, class: "form-control", placeholder: "Your password..." %>
+            </div>
+            <%= f.submit "Login", class: "btn btn-info btn-block btn-round" %>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <div class="signup-section">Not a member yet? <a href="<%= users_signup_path %>" class="text-info"> Sign Up</a>.</div>
+      </div>
+    </div>
+  </div>
+<% end %>
